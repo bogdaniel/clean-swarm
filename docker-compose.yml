@@ -1,10 +1,18 @@
-version: '3.7'
+version: '3.8'
+
+networks:
+  cloud-socket-proxy:
+    external: true
+    
 services:
   system-prune:
     image: docker
+    environment:
+      DOCKER_HOST: tcp://socket-proxy:2375
     volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
     command: docker system prune --all --force --volumes
+    network:
+      - cloud-socket-proxy
     deploy:
       mode: global
       restart_policy:
