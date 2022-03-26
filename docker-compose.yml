@@ -9,7 +9,6 @@ services:
     image: docker
     environment:
       DOCKER_HOST: tcp://socket-proxy:2375
-    volumes:
     command: docker system prune --all --force --volumes
     network:
       - cloud-socket-proxy
